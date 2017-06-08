@@ -1,0 +1,292 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+EasyTaskManager
+</name>
+</assembly>
+<members>
+<member name="T:EasyTaskManager.My.Resources.Resources">
+<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.Resources.ResourceManager">
+<summary>
+  Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.Resources.Culture">
+<summary>
+  Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+  búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.Resources.Shield32">
+<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.Resources.Threading">
+<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+</summary>
+</member>
+<member name="T:EasyTaskManager.My.Resources.EasyTaskManager">
+<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ResourceManager">
+<summary>
+  Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Culture">
+<summary>
+  Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+  búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ApplicationName">
+<summary>
+  Busca una cadena traducida similar a Easy Task Manager.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Cancel">
+<summary>
+  Busca una cadena traducida similar a Cancel.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ChangePriorityProcess">
+<summary>
+  Busca una cadena traducida similar a Change Priority Process.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Close">
+<summary>
+  Busca una cadena traducida similar a Close.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.CPU">
+<summary>
+  Busca una cadena traducida similar a CPU.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.CreateTask">
+<summary>
+  Busca una cadena traducida similar a Create new task.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Description">
+<summary>
+  Busca una cadena traducida similar a Description.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.File">
+<summary>
+  Busca una cadena traducida similar a File.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Finalize">
+<summary>
+  Busca una cadena traducida similar a Finalize.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.FinalizeTask">
+<summary>
+  Busca una cadena traducida similar a Finalize Task.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.FinalizeTreeProcess">
+<summary>
+  Busca una cadena traducida similar a Finalize Tree Services.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.GeneralInformation">
+<summary>
+  Busca una cadena traducida similar a General Information.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.GotoServices">
+<summary>
+  Busca una cadena traducida similar a Go to Services.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Head">
+<summary>
+  Busca una cadena traducida similar a Type the name of the program, directory, document, or Internet resource you want to open with Windows.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.High">
+<summary>
+  Busca una cadena traducida similar a High.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Idle">
+<summary>
+  Busca una cadena traducida similar a Idle.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.IdProcess">
+<summary>
+  Busca una cadena traducida similar a Id Process.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Memory">
+<summary>
+  Busca una cadena traducida similar a Memory.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.NewProcess">
+<summary>
+  Busca una cadena traducida similar a New Process.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.NewServices">
+<summary>
+  Busca una cadena traducida similar a New Services.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.NewTask">
+<summary>
+  Busca una cadena traducida similar a New Task.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Normal">
+<summary>
+  Busca una cadena traducida similar a Normal.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Ok">
+<summary>
+  Busca una cadena traducida similar a Ok.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.OpenProcess">
+<summary>
+  Busca una cadena traducida similar a Open Process.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Priority">
+<summary>
+  Busca una cadena traducida similar a Priority.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.PriorityHigh">
+<summary>
+  Busca una cadena traducida similar a High Priority.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.PriorityLow">
+<summary>
+  Busca una cadena traducida similar a Low Priority.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.PriorityNormal">
+<summary>
+  Busca una cadena traducida similar a Priority Normal.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Process">
+<summary>
+  Busca una cadena traducida similar a Process.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ProcessName">
+<summary>
+  Busca una cadena traducida similar a Process Name.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.RealTime">
+<summary>
+  Busca una cadena traducida similar a Real Time.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Running">
+<summary>
+  Busca una cadena traducida similar a Running.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ServiceName">
+<summary>
+  Busca una cadena traducida similar a Service Name.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Services">
+<summary>
+  Busca una cadena traducida similar a Services.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.StartServices">
+<summary>
+  Busca una cadena traducida similar a Start Services.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Status">
+<summary>
+  Busca una cadena traducida similar a Status.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Stopped">
+<summary>
+  Busca una cadena traducida similar a Stopped.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.StopServices">
+<summary>
+  Busca una cadena traducida similar a Stop Services.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Subprocess">
+<summary>
+  Busca una cadena traducida similar a Sub Process.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Task">
+<summary>
+  Busca una cadena traducida similar a Task.
+</summary>
+</member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Username">
+<summary>
+  Busca una cadena traducida similar a User Name.
+</summary>
+</member>
+<member name="M:EasyTaskManager.frmNewProcess.LoadedResources">
+ <summary>
+ Loaded resources the system
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.ConfigureStatusStrip">
+ <summary>
+ Configure the status bar
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.LoadedResources">
+ <summary>
+ Loaded resources the system
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.ConfigureCulture">
+ <summary>
+ Configure the culture
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.ConfigureListView">
+ <summary>
+ Configure Listview of the processes
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.ConfigureListViewServices">
+ <summary>
+ Configure Listview of the services
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.LoadProcess">
+ <summary>
+ Loading current processes 
+ </summary>
+</member>
+</members>
+</doc>

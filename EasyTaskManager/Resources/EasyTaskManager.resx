@@ -213,4 +213,31 @@
   <data name="PriorityNormal" xml:space="preserve">
     <value>Priority Normal</value>
   </data>
+  <data name="StartServices" xml:space="preserve">
+    <value>Start Services</value>
+  </data>
+  <data name="StopServices" xml:space="preserve">
+    <value>Stop Services</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Idle" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="RealTime" xml:space="preserve">
+    <value>Real Time</value>
+  </data>
+  <data name="PriorityHigh" xml:space="preserve">
+    <value>High Priority</value>
+  </data>
+  <data name="PriorityLow" xml:space="preserve">
+    <value>Low Priority</value>
+  </data>
 </root>

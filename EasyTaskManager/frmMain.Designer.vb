@@ -44,6 +44,7 @@ Partial Class frmMain
         Me.tsmnuiNewTask = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmnuiClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssEasyTaskManager = New System.Windows.Forms.StatusStrip()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.cmsEasyTaskManager = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tcEasyTaskManager.SuspendLayout()
@@ -51,6 +52,7 @@ Partial Class frmMain
         Me.tpProcesses.SuspendLayout()
         Me.tpServices.SuspendLayout()
         Me.mnusEasyTaskManager.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -61,14 +63,15 @@ Partial Class frmMain
         Me.TableLayoutPanel1.Controls.Add(Me.tcEasyTaskManager, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.mnusEasyTaskManager, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.ssEasyTaskManager, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.PictureBox1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 83.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.90173!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.09827!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 92.32877!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.671233!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(992, 434)
         Me.TableLayoutPanel1.TabIndex = 0
         '
@@ -79,10 +82,10 @@ Partial Class frmMain
         Me.tcEasyTaskManager.Controls.Add(Me.tpProcesses)
         Me.tcEasyTaskManager.Controls.Add(Me.tpServices)
         Me.tcEasyTaskManager.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcEasyTaskManager.Location = New System.Drawing.Point(3, 111)
+        Me.tcEasyTaskManager.Location = New System.Drawing.Point(3, 72)
         Me.tcEasyTaskManager.Name = "tcEasyTaskManager"
         Me.tcEasyTaskManager.SelectedIndex = 0
-        Me.tcEasyTaskManager.Size = New System.Drawing.Size(986, 251)
+        Me.tcEasyTaskManager.Size = New System.Drawing.Size(986, 330)
         Me.tcEasyTaskManager.TabIndex = 1
         '
         'tpGeneralInformation
@@ -98,7 +101,7 @@ Partial Class frmMain
         Me.tpGeneralInformation.Location = New System.Drawing.Point(4, 22)
         Me.tpGeneralInformation.Name = "tpGeneralInformation"
         Me.tpGeneralInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpGeneralInformation.Size = New System.Drawing.Size(978, 225)
+        Me.tpGeneralInformation.Size = New System.Drawing.Size(978, 304)
         Me.tpGeneralInformation.TabIndex = 0
         Me.tpGeneralInformation.Text = "General Information"
         Me.tpGeneralInformation.UseVisualStyleBackColor = True
@@ -186,7 +189,7 @@ Partial Class frmMain
         Me.tpProcesses.Location = New System.Drawing.Point(4, 22)
         Me.tpProcesses.Name = "tpProcesses"
         Me.tpProcesses.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpProcesses.Size = New System.Drawing.Size(978, 225)
+        Me.tpProcesses.Size = New System.Drawing.Size(978, 304)
         Me.tpProcesses.TabIndex = 1
         Me.tpProcesses.Text = "Process"
         Me.tpProcesses.UseVisualStyleBackColor = True
@@ -196,7 +199,7 @@ Partial Class frmMain
         Me.lvProcess.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvProcess.Location = New System.Drawing.Point(3, 3)
         Me.lvProcess.Name = "lvProcess"
-        Me.lvProcess.Size = New System.Drawing.Size(972, 219)
+        Me.lvProcess.Size = New System.Drawing.Size(972, 298)
         Me.lvProcess.TabIndex = 1
         Me.lvProcess.UseCompatibleStateImageBehavior = False
         '
@@ -205,7 +208,7 @@ Partial Class frmMain
         Me.tpServices.Controls.Add(Me.lvServices)
         Me.tpServices.Location = New System.Drawing.Point(4, 22)
         Me.tpServices.Name = "tpServices"
-        Me.tpServices.Size = New System.Drawing.Size(978, 225)
+        Me.tpServices.Size = New System.Drawing.Size(978, 304)
         Me.tpServices.TabIndex = 2
         Me.tpServices.Text = "Services"
         Me.tpServices.UseVisualStyleBackColor = True
@@ -215,7 +218,7 @@ Partial Class frmMain
         Me.lvServices.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvServices.Location = New System.Drawing.Point(0, 0)
         Me.lvServices.Name = "lvServices"
-        Me.lvServices.Size = New System.Drawing.Size(978, 225)
+        Me.lvServices.Size = New System.Drawing.Size(978, 304)
         Me.lvServices.TabIndex = 1
         Me.lvServices.UseCompatibleStateImageBehavior = False
         '
@@ -223,9 +226,9 @@ Partial Class frmMain
         '
         Me.TableLayoutPanel1.SetColumnSpan(Me.mnusEasyTaskManager, 2)
         Me.mnusEasyTaskManager.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmnuiFile})
-        Me.mnusEasyTaskManager.Location = New System.Drawing.Point(0, 83)
+        Me.mnusEasyTaskManager.Location = New System.Drawing.Point(0, 47)
         Me.mnusEasyTaskManager.Name = "mnusEasyTaskManager"
-        Me.mnusEasyTaskManager.Size = New System.Drawing.Size(992, 24)
+        Me.mnusEasyTaskManager.Size = New System.Drawing.Size(992, 22)
         Me.mnusEasyTaskManager.TabIndex = 3
         Me.mnusEasyTaskManager.Text = "MenuStrip1"
         '
@@ -233,19 +236,19 @@ Partial Class frmMain
         '
         Me.tsmnuiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmnuiNewTask, Me.tsmnuiClose})
         Me.tsmnuiFile.Name = "tsmnuiFile"
-        Me.tsmnuiFile.Size = New System.Drawing.Size(37, 20)
+        Me.tsmnuiFile.Size = New System.Drawing.Size(37, 18)
         Me.tsmnuiFile.Text = "File"
         '
         'tsmnuiNewTask
         '
         Me.tsmnuiNewTask.Name = "tsmnuiNewTask"
-        Me.tsmnuiNewTask.Size = New System.Drawing.Size(152, 22)
+        Me.tsmnuiNewTask.Size = New System.Drawing.Size(124, 22)
         Me.tsmnuiNewTask.Text = "New Task"
         '
         'tsmnuiClose
         '
         Me.tsmnuiClose.Name = "tsmnuiClose"
-        Me.tsmnuiClose.Size = New System.Drawing.Size(152, 22)
+        Me.tsmnuiClose.Size = New System.Drawing.Size(124, 22)
         Me.tsmnuiClose.Text = "Close"
         '
         'ssEasyTaskManager
@@ -258,6 +261,15 @@ Partial Class frmMain
         Me.ssEasyTaskManager.TabIndex = 2
         Me.ssEasyTaskManager.Text = "StatusStrip1"
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.EasyTaskManager.My.Resources.Resources.Shield32
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(36, 33)
+        Me.PictureBox1.TabIndex = 4
+        Me.PictureBox1.TabStop = False
+        '
         'cmsEasyTaskManager
         '
         Me.cmsEasyTaskManager.Name = "cmsEasyTaskManager"
@@ -269,8 +281,11 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(992, 434)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.mnusEasyTaskManager
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Easy Task Manager"
@@ -283,6 +298,7 @@ Partial Class frmMain
         Me.tpServices.ResumeLayout(False)
         Me.mnusEasyTaskManager.ResumeLayout(False)
         Me.mnusEasyTaskManager.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -308,4 +324,5 @@ Partial Class frmMain
     Friend WithEvents tsmnuiNewTask As ToolStripMenuItem
     Friend WithEvents tsmnuiClose As ToolStripMenuItem
     Friend WithEvents cmsEasyTaskManager As ContextMenuStrip
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

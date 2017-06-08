@@ -9,8 +9,8 @@ Imports EasyTaskManager
 Public Class frmMain
 
 #Region "Variables"
-
-    Private _interval As Integer = 2000 'Indicate of the interval of timer
+    ''
+    Private _interval As Integer = 10000 'Indicate of the interval of timer
 
     Private _rm As Resources.ResourceManager
     Private _cultureInfo As CultureInfo
@@ -21,9 +21,10 @@ Public Class frmMain
     Private _tmrProcess As System.Windows.Forms.Timer = Nothing
     Private _tmrServices As System.Windows.Forms.Timer = Nothing
 
-    Private Delegate Sub del_Process(pId As String, pName As String, pUsername As String, pMemory As String, pStatus As String)
+    Private Delegate Sub del_Process(pId As String, pName As String, pDescription As String, pUsername As String, pMemory As String, pStatus As String, pPriority As String)
     Private Delegate Sub del_Services(pName As String, pDescription As String, pMachine As String, pStatus As String)
     Private Delegate Sub del_UtilizationCPU(pUtilization As String)
+    Private Delegate Sub del_UtilizationRAM(pUtilization As String)
     Private Delegate Sub del_NumberProcess(pProcess As String)
     Private Delegate Sub del_NumberSubProcess(pProcess As String)
 
@@ -42,45 +43,71 @@ Public Class frmMain
 
     End Sub
 
+
+#Region "Methods Private"
+
     Private Sub Initialize()
-        _cultureInfo = Application.CurrentCulture
-        ConfigureCulture()
+        Try
+            _cultureInfo = Application.CurrentCulture
+            ConfigureCulture()
 
-        LoadedResources()
+            LoadedResources()
 
-        ConfigureStatusStrip()
-        ConfigureListView()
-        ConfigureListViewServices()
+            ConfigureStatusStrip()
+            ConfigureListView()
+            ConfigureListViewServices()
 
-        'Customized timers
-        'Process
-        _tmrProcess = New System.Windows.Forms.Timer
-        _tmrProcess.Interval = _interval
+            'Customized timers
+            'Process
+            _tmrProcess = New System.Windows.Forms.Timer
+            _tmrProcess.Interval = _interval
 
-        'Services 
-        _tmrServices = New System.Windows.Forms.Timer
-        _tmrServices.Interval = _interval
+            'Services 
+            _tmrServices = New System.Windows.Forms.Timer
+            _tmrServices.Interval = _interval
 
-        'Handler timer
-        AddHandler _tmrProcess.Tick, AddressOf TmrProcess_Tick
-        AddHandler _tmrServices.Tick, AddressOf TmrServices_Tick
+            'Handler timer
+            AddHandler _tmrProcess.Tick, AddressOf TmrProcess_Tick
+            AddHandler _tmrServices.Tick, AddressOf TmrServices_Tick
 
 
-        'Load process
-        _threadProcess = New Thread(New ThreadStart(AddressOf LoadProcess))
-        _threadProcess.Name = "proEasyTaskManager"
-        _threadProcess.IsBackground = True
-        _threadProcess.Start()
-        ''Load services
-        _threadServices = New Thread(New ThreadStart(AddressOf LoadServices))
-        _threadServices.Name = "servEasyTaskManager"
-        _threadServices.IsBackground = True
-        _threadServices.Start()
+            'Load process
+            _threadProcess = New Thread(New ThreadStart(AddressOf LoadProcess))
+            _threadProcess.Name = "proEasyTaskManager"
+            _threadProcess.IsBackground = True
+            _threadProcess.Start()
+            ''Load services
+            _threadServices = New Thread(New ThreadStart(AddressOf LoadServices))
+            _threadServices.Name = "servEasyTaskManager"
+            _threadServices.IsBackground = True
+            _threadServices.Start()
 
-        _tmrProcess.Start()
-        _tmrServices.Start()
+            _tmrProcess.Start()
+            _tmrServices.Start()
 
-        'LoadProcess()
+            Dim propName As String = "BatteryLifePercent"
+            Dim t As Type = GetType(System.Windows.Forms.PowerStatus)
+            Dim pi As PropertyInfo() = t.GetProperties
+            Dim prop As PropertyInfo
+            For i As Integer = 0 To pi.Length - 1
+                If pi(i).Name = propName Then
+                    prop = pi(i)
+                    Exit For
+                End If
+            Next
+
+            ' Environment.Is64BitProcess
+
+            'Dim powerLevel As Long = prop.GetValue(SystemInformation.PowerStatus, Nothing)
+            'Dim avgCounter64Sample As PerformanceCounter = New PerformanceCounter("AverageCounter64SampleCategory", "AverageCounter64Sample", False)
+            'Dim avgCounter64SampleBase As PerformanceCounter = New PerformanceCounter("AverageCounter64SampleCategory", "AverageCounter64Sample", False)
+
+            'avgCounter64Sample.RawValue = 0
+            'avgCounter64SampleBase.RawValue = 0
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, Me.Text)
+        End Try
+
     End Sub
 
     ''' <summary>
@@ -117,29 +144,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub TmrServices_Tick(sender As Object, e As EventArgs)
-        If Not _threadServices.IsAlive AndAlso (_threadServices.ThreadState = ThreadState.Stopped OrElse _threadServices.ThreadState = ThreadState.Unstarted) Then
-
-            'Load process
-            _threadProcess = New Thread(New ThreadStart(AddressOf LoadProcess))
-            _threadProcess.Name = "proEasyTaskManager"
-            _threadProcess.IsBackground = True
-            _threadProcess.Start()
-
-        End If
-    End Sub
-
-    Private Sub TmrProcess_Tick(sender As Object, e As EventArgs)
-        If Not _threadProcess.IsAlive AndAlso (_threadProcess.ThreadState = ThreadState.Stopped OrElse _threadProcess.ThreadState = ThreadState.Unstarted) Then
-            ''Load services
-            _threadServices = New Thread(New ThreadStart(AddressOf LoadServices))
-            _threadServices.Name = "servEasyTaskManager"
-            _threadServices.IsBackground = True
-            _threadServices.Start()
-
-        End If
-    End Sub
-
     ''' <summary>
     ''' Configure the culture
     ''' </summary>
@@ -157,14 +161,21 @@ Public Class frmMain
     ''' Configure Listview of the processes
     ''' </summary>
     Private Sub ConfigureListView()
+        lvProcess.FullRowSelect = True
+        lvProcess.MultiSelect = False
+
         lvProcess.Columns.Clear()
         lvProcess.Items.Clear()
 
         lvProcess.Columns.Add(My.Resources.EasyTaskManager.IdProcess, 100)
-        lvProcess.Columns.Add(My.Resources.EasyTaskManager.ProcessName, 350)
+        lvProcess.Columns.Add(My.Resources.EasyTaskManager.ProcessName, 300)
+        lvProcess.Columns.Add(My.Resources.EasyTaskManager.Description, 350)
         lvProcess.Columns.Add(My.Resources.EasyTaskManager.Username, 100)
         lvProcess.Columns.Add(My.Resources.EasyTaskManager.Memory, 100)
         lvProcess.Columns.Add(My.Resources.EasyTaskManager.Status, 100)
+        lvProcess.Columns.Add(My.Resources.EasyTaskManager.Priority, 100)
+
+        lvProcess.Columns(4).TextAlign = HorizontalAlignment.Right
 
         lvProcess.View = View.Details
     End Sub
@@ -188,9 +199,20 @@ Public Class frmMain
     ''' Loading current processes 
     ''' </summary>
     Private Sub LoadProcess()
+
         Dim listProcess As List(Of Process) = Process.GetProcesses.OrderBy(Function(p) p.ProcessName).ToList
-        Dim lvi As ListViewItem = Nothing
-        Dim statusProcess As Boolean = Nothing
+            Dim lvi As ListViewItem = Nothing
+            Dim statusProcess As Boolean = Nothing
+            Dim proc As ProcessStartInfo = Nothing
+            Dim mo As ManagementObject
+            Dim methodResult As ManagementBaseObject
+            Dim processOwner As String = "Not Available"
+            Dim priority As String
+            Dim fv As FileVersionInfo = Nothing
+        Dim description As String
+
+        Dim subProcess As Long = 0
+
         For Each p As Process In listProcess
             'lvi = New ListViewItem()
             'lvi.Name = p.Id
@@ -201,24 +223,61 @@ Public Class frmMain
             'lvi.SubItems.Add("Running")
 
             'lvProcess.Items.Add(lvi)
+            'mo = New ManagementObject("root\CIMV2", "Win32_Process.Handle=" & p.Id, Nothing)
+            'methodResult = mo.InvokeMethod("GetOwner", Nothing, Nothing)
 
-            ListViewAddItemProcess(p.Id, p.ProcessName, p.StartInfo.UserName, (p.PrivateMemorySize).ToString(), "Running")
+            'If CInt(methodResult("ReturnValue")) = 0 Then
+            '    processOwner = String.Format("{0}\{1}", methodResult("Domain").ToString, methodResult("User").ToString)
+            'End If
+
+            'processOwner = p.StartInfo.UserName
+
+            'Select Case p.PriorityClass
+            '    Case ProcessPriorityClass.Idle
+            '        priority = My.Resources.EasyTaskManager.Idle
+            '    Case ProcessPriorityClass.Normal
+            '        priority = My.Resources.EasyTaskManager.Normal
+            '    Case ProcessPriorityClass.High
+            '        priority = My.Resources.EasyTaskManager.High
+            '    Case ProcessPriorityClass.RealTime
+            '        priority = My.Resources.EasyTaskManager.RealTime
+            'End Select
+            'proce = Process.GetProcessById(p.Id)
+            '
+            Try
+                'path = p.Modules(0).FileName
+                description = FileVersionInfo.GetVersionInfo(p.Modules(0).FileName).FileDescription
+                priority = p.PriorityClass.ToString
+            Catch ex As Exception
+                description = ""
+            End Try
+
+            subProcess += p.Threads.Count
+
+            ListViewAddItemProcess(p.Id, p.ProcessName, description, p.StartInfo.UserName, String.Format("{0} K", Math.Round((p.PrivateMemorySize64 / 1024), 0).ToString("0,000")), "Running", priority)
+
         Next
 
         NumberProcess(listProcess.Count)
         NumberProcessStatus(listProcess.Count)
+
+        NumberSubProcess(subProcess)
+
         UtilizationCPU(String.Format("{0} %", UsedCPU.ToString("#,###")))
         UtilizationCPUStatus(String.Format("{0} %", UsedCPU.ToString("#,###")))
 
-        _threadProcess.Abort()
-        While _threadProcess.IsAlive
+        UtilizationRAM(String.Format("{0} GB", UsedMemory.ToString("#,#")))
+        UtilizationRamStatus(String.Format("{0} GB", UsedMemory.ToString("#,#")))
 
-        End While
+        _threadProcess.Abort()
+            While _threadProcess.IsAlive
+
+            End While
 
     End Sub
 
     Private Sub LoadServices()
-        Dim listServices As List(Of ServiceController) = ServiceController.GetServices.ToList
+        Dim listServices As List(Of ServiceController) = ServiceController.GetServices.OrderBy(Function(sc) sc.DisplayName).ToList
         Dim lviServices As ListViewItem = Nothing
         Dim statusService As String = Nothing
 
@@ -245,6 +304,7 @@ Public Class frmMain
             'lviServices.SubItems.Add(statusService)
 
             'lvServices.Items.Add(lviServices)
+
             ListViewAddItemServices(s.DisplayName, s.DisplayName, s.MachineName, s.Status.ToString)
         Next
         _threadServices.Abort()
@@ -272,12 +332,27 @@ Public Class frmMain
         Return percent
     End Function
 
-    Private Sub ListViewAddItemProcess(pId As String, pName As String, pUsername As String, pMemory As String, pStatus As String)
+    Private Function UsedMemory() As Decimal
+        Dim percent As Decimal = 0
+
+        Dim ramCounter As New PerformanceCounter
+        ramCounter.CategoryName = "Memory"
+        ramCounter.CounterName = "Available MBytes"
+        ' cpuCounter.InstanceName = "_Total"
+
+        ramCounter.NextValue()
+        System.Threading.Thread.Sleep(100)
+        percent = ramCounter.NextValue
+
+        Return percent
+    End Function
+
+    Private Sub ListViewAddItemProcess(pId As String, pName As String, pDescrpition As String, pUsername As String, pMemory As String, pStatus As String, pPriority As String)
         If lvProcess.InvokeRequired Then
             Dim d As New del_Process(AddressOf ListViewAddItemProcess)
-            Me.lvProcess.BeginInvoke(d, {pId, pName, pUsername, pMemory, pStatus})
+            Me.lvProcess.BeginInvoke(d, {pId, pName, pDescrpition, pUsername, pMemory, pStatus, pPriority})
         Else
-            lvProcess.Items.Add(New ListViewItem(New String() {pId, pName, pUsername, pMemory, pStatus}))
+            lvProcess.Items.Add(New ListViewItem(New String() {pId, pName, pDescrpition, pUsername, pMemory, pStatus, pPriority}))
         End If
     End Sub
 
@@ -296,6 +371,15 @@ Public Class frmMain
             lblCPU.BeginInvoke(d, pUtilization)
         Else
             lblCPU.Text = pUtilization
+        End If
+    End Sub
+
+    Private Sub UtilizationRAM(pUtilization As String)
+        If lblCPU.InvokeRequired Then
+            Dim d As New del_UtilizationRAM(AddressOf UtilizationRAM)
+            lblMemory.BeginInvoke(d, pUtilization)
+        Else
+            lblMemory.Text = pUtilization
         End If
     End Sub
 
@@ -326,6 +410,15 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub UtilizationRamStatus(pUtilization As String)
+        If ssEasyTaskManager.InvokeRequired Then
+            Dim d As New del_UtilizationRAM(AddressOf UtilizationRamStatus)
+            ssEasyTaskManager.BeginInvoke(d, New Object() {pUtilization})
+        Else
+            ssEasyTaskManager.Items(MEMORY).Text = String.Format("{0} {1}", My.Resources.EasyTaskManager.Memory, pUtilization)
+        End If
+    End Sub
+
     Private Sub NumberProcessStatus(pProcess As String)
         If ssEasyTaskManager.InvokeRequired Then
             Dim d As New del_NumberProcess(AddressOf NumberProcessStatus)
@@ -342,24 +435,91 @@ Public Class frmMain
         Select Case eType
             Case eType.GeneralInformation
             Case eType.Processes
-                Dim cmsChangePriorityProcess As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.ChangePriorityProcess)
+                Dim cmsChangePriorityProcess As ToolStripMenuItem = cms.Items.Add(My.Resources.EasyTaskManager.ChangePriorityProcess)
                 Dim cmsFinalizeTask As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.FinalizeTask)
                 Dim cmsFinalizeTreeProcess As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.FinalizeTreeProcess)
                 Dim cmsGotoServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.GotoServices)
 
-                ' Dim tsiPriorityNormal As ToolStripItem = cms.Items.AddRange(My.Resources.EasyTaskManager.PriorityNormal)
+                'Dim tsiPriorityNormal As ToolStripItem = cmsChangePriorityProcess(My.Resources.EasyTaskManager.PriorityNormal)
+                cmsChangePriorityProcess.DropDownItems.Add(My.Resources.EasyTaskManager.PriorityNormal)
+                cmsChangePriorityProcess.DropDownItems.Add(My.Resources.EasyTaskManager.PriorityHigh)
+                cmsChangePriorityProcess.DropDownItems.Add(My.Resources.EasyTaskManager.PriorityLow)
 
                 'tsiPriorityNormal.Owne = cmsChangePriorityProcess
 
                 AddHandler cmsFinalizeTask.Click, AddressOf FinalizeTask_Click
                 AddHandler cmsFinalizeTreeProcess.Click, AddressOf FinalizeTreeProcess_Click
                 AddHandler cmsGotoServices.Click, AddressOf GotoServices_Click
+
+                AddHandler cmsChangePriorityProcess.DropDownItemClicked, AddressOf ChangePriorityProcess_Click
+            Case eType.Services
+                Dim cmsFinalizeServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.StopServices)
+                Dim cmsStartServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.StartServices)
+                'Dim cmsGotoServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.GotoServices)
+
+                ' Dim tsiPriorityNormal As ToolStripItem = cms.Items.AddRange(My.Resources.EasyTaskManager.PriorityNormal)
+
+                'tsiPriorityNormal.Owne = cmsChangePriorityProcess
+
+                AddHandler cmsFinalizeServices.Click, AddressOf FinalizeServices_Click
+                AddHandler cmsStartServices.Click, AddressOf StartServices_Click
+                'AddHandler cmsGotoServices.Click, AddressOf GotoServices_Click
         End Select
         Return cms
     End Function
 
+#End Region
+
+#Region "Events"
+
+    Private Sub TmrServices_Tick(sender As Object, e As EventArgs)
+        If Not _threadServices.IsAlive AndAlso (_threadServices.ThreadState = ThreadState.Stopped OrElse _threadServices.ThreadState = ThreadState.Unstarted) Then
+            ''Load services
+            _threadServices = New Thread(New ThreadStart(AddressOf LoadServices))
+            _threadServices.Name = "servEasyTaskManager"
+            _threadServices.IsBackground = True
+            _threadServices.Start()
+        End If
+    End Sub
+
+    Private Sub TmrProcess_Tick(sender As Object, e As EventArgs)
+        If Not _threadProcess.IsAlive AndAlso (_threadProcess.ThreadState = ThreadState.Stopped OrElse _threadProcess.ThreadState = ThreadState.Unstarted) Then
+            'Load process
+            _threadProcess = New Thread(New ThreadStart(AddressOf LoadProcess))
+            _threadProcess.Name = "proEasyTaskManager"
+            _threadProcess.IsBackground = True
+            _threadProcess.Start()
+        End If
+    End Sub
+
+    Private Sub StartServices_Click(sender As Object, e As EventArgs)
+        Try
+            If lvServices.SelectedItems.Count > 0 Then
+                Dim s As New ServiceController(lvServices.SelectedItems(0).Text)
+                If s.Status = ServiceControllerStatus.Stopped Then
+                    s.Start()
+                    s.WaitForStatus(ServiceControllerStatus.Running)
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, Me.Text)
+        End Try
+
+    End Sub
+
+    Private Sub FinalizeServices_Click(sender As Object, e As EventArgs)
+        If lvServices.SelectedItems.Count > 0 Then
+            Dim s As New ServiceController(lvServices.SelectedItems(0).Text)
+            If s.Status = ServiceControllerStatus.Running Or s.Status = ServiceControllerStatus.StartPending Then
+                s.Stop()
+                s.WaitForStatus(ServiceControllerStatus.Stopped)
+            End If
+        End If
+    End Sub
+
     Private Sub GotoServices_Click(sender As Object, e As EventArgs)
         tpServices.Select()
+        tcEasyTaskManager.SelectedIndex = 2
     End Sub
 
     Private Sub FinalizeTreeProcess_Click(sender As Object, e As EventArgs)
@@ -370,11 +530,23 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub ChangePriorityProcess_Click(sender As Object, e As EventArgs)
+    Private Sub ChangePriorityProcess_Click(sender As Object, e As ToolStripItemClickedEventArgs)
         If lvProcess.SelectedItems.Count > 0 Then
-            Dim p As Process = Process.GetProcessById(lvProcess.SelectedItems(0).Text)
-            p.PriorityClass = ProcessPriorityClass.Normal
-            p.WaitForExit()
+            Try
+                Dim p As Process = Process.GetProcessById(lvProcess.SelectedItems(0).Text)
+                Select Case e.ClickedItem.Text
+                    Case My.Resources.EasyTaskManager.PriorityNormal
+                        p.PriorityClass = ProcessPriorityClass.Normal
+                    Case My.Resources.EasyTaskManager.PriorityLow
+                        p.PriorityClass = ProcessPriorityClass.AboveNormal
+                End Select
+                'p.Start()
+                cmsEasyTaskManager.Close()
+                p.WaitForExit()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, Me.Text)
+            End Try
+
         End If
     End Sub
 
@@ -401,7 +573,7 @@ Public Class frmMain
                 lvProcess.ContextMenuStrip = ConfigureContextMenuEasyTaskManager(typeTask)
             Case "tpServices"
                 typeTask = eType.Services
-                lvProcess.ContextMenuStrip = ConfigureContextMenuEasyTaskManager(typeTask)
+                lvServices.ContextMenuStrip = ConfigureContextMenuEasyTaskManager(typeTask)
         End Select
     End Sub
 
@@ -418,6 +590,16 @@ Public Class frmMain
         frmNewProcess.ShowDialog()
     End Sub
 
+    Private Sub lvProcess_DrawItem(sender As Object, e As DrawListViewItemEventArgs) Handles lvProcess.DrawItem
+        If Not (e.State = ListViewItemStates.Selected) = 0 Then
+            e.Graphics.FillRectangle(Brushes.SkyBlue, e.Bounds)
+            e.DrawFocusRectangle()
+        End If
+    End Sub
+
+
+#End Region
+
 End Class
 
 Public Enum eType
@@ -425,3 +607,5 @@ Public Enum eType
     Processes = 2
     Services = 3
 End Enum
+
+

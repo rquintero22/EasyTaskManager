@@ -1,0 +1,13 @@
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\bin\x86\Debug\EasyTaskManager.exe.config
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\bin\x86\Debug\EasyTaskManager.exe
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\bin\x86\Debug\EasyTaskManager.pdb
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\bin\x86\Debug\es-CR\EasyTaskManager.resources.dll
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.frmMain.resources
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.frmNewProcess.resources
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.Resources.resources
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.EasyTaskManager.resources
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.EasyTaskManager.es-CR.resources
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.vbproj.GenerateResource.Cache
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\es-CR\EasyTaskManager.resources.dll
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.exe
+C:\Users\Raymond\Google Drive\Proyecto Personal\EasyTaskManager\EasyTaskManager\obj\x86\Debug\EasyTaskManager.pdb

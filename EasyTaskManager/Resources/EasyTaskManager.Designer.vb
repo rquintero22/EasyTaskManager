@@ -191,6 +191,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Busca una cadena traducida similar a High.
+        '''</summary>
+        Friend Shared ReadOnly Property High() As String
+            Get
+                Return ResourceManager.GetString("High", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a Idle.
+        '''</summary>
+        Friend Shared ReadOnly Property Idle() As String
+            Get
+                Return ResourceManager.GetString("Idle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Busca una cadena traducida similar a Id Process.
         '''</summary>
         Friend Shared ReadOnly Property IdProcess() As String
@@ -236,6 +254,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Busca una cadena traducida similar a Normal.
+        '''</summary>
+        Friend Shared ReadOnly Property Normal() As String
+            Get
+                Return ResourceManager.GetString("Normal", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Busca una cadena traducida similar a Ok.
         '''</summary>
         Friend Shared ReadOnly Property Ok() As String
@@ -250,6 +277,33 @@ Namespace My.Resources
         Friend Shared ReadOnly Property OpenProcess() As String
             Get
                 Return ResourceManager.GetString("OpenProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a Priority.
+        '''</summary>
+        Friend Shared ReadOnly Property Priority() As String
+            Get
+                Return ResourceManager.GetString("Priority", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a High Priority.
+        '''</summary>
+        Friend Shared ReadOnly Property PriorityHigh() As String
+            Get
+                Return ResourceManager.GetString("PriorityHigh", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a Low Priority.
+        '''</summary>
+        Friend Shared ReadOnly Property PriorityLow() As String
+            Get
+                Return ResourceManager.GetString("PriorityLow", resourceCulture)
             End Get
         End Property
         
@@ -281,6 +335,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Busca una cadena traducida similar a Real Time.
+        '''</summary>
+        Friend Shared ReadOnly Property RealTime() As String
+            Get
+                Return ResourceManager.GetString("RealTime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Busca una cadena traducida similar a Running.
         '''</summary>
         Friend Shared ReadOnly Property Running() As String
@@ -308,6 +371,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Busca una cadena traducida similar a Start Services.
+        '''</summary>
+        Friend Shared ReadOnly Property StartServices() As String
+            Get
+                Return ResourceManager.GetString("StartServices", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Busca una cadena traducida similar a Status.
         '''</summary>
         Friend Shared ReadOnly Property Status() As String
@@ -322,6 +394,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property Stopped() As String
             Get
                 Return ResourceManager.GetString("Stopped", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a Stop Services.
+        '''</summary>
+        Friend Shared ReadOnly Property StopServices() As String
+            Get
+                Return ResourceManager.GetString("StopServices", resourceCulture)
             End Get
         End Property
         
