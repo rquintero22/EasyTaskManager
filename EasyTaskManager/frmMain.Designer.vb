@@ -45,6 +45,7 @@ Partial Class frmMain
         Me.tsmnuiClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.ssEasyTaskManager = New System.Windows.Forms.StatusStrip()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.cmsEasyTaskManager = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tcEasyTaskManager.SuspendLayout()
@@ -57,13 +58,15 @@ Partial Class frmMain
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.tcEasyTaskManager, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.mnusEasyTaskManager, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.ssEasyTaskManager, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.PictureBox1, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -77,7 +80,7 @@ Partial Class frmMain
         '
         'tcEasyTaskManager
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.tcEasyTaskManager, 2)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.tcEasyTaskManager, 3)
         Me.tcEasyTaskManager.Controls.Add(Me.tpGeneralInformation)
         Me.tcEasyTaskManager.Controls.Add(Me.tpProcesses)
         Me.tcEasyTaskManager.Controls.Add(Me.tpServices)
@@ -224,7 +227,7 @@ Partial Class frmMain
         '
         'mnusEasyTaskManager
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.mnusEasyTaskManager, 2)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.mnusEasyTaskManager, 3)
         Me.mnusEasyTaskManager.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmnuiFile})
         Me.mnusEasyTaskManager.Location = New System.Drawing.Point(0, 47)
         Me.mnusEasyTaskManager.Name = "mnusEasyTaskManager"
@@ -253,7 +256,7 @@ Partial Class frmMain
         '
         'ssEasyTaskManager
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.ssEasyTaskManager, 2)
+        Me.TableLayoutPanel1.SetColumnSpan(Me.ssEasyTaskManager, 3)
         Me.ssEasyTaskManager.Location = New System.Drawing.Point(0, 412)
         Me.ssEasyTaskManager.Name = "ssEasyTaskManager"
         Me.ssEasyTaskManager.Size = New System.Drawing.Size(992, 22)
@@ -269,6 +272,17 @@ Partial Class frmMain
         Me.PictureBox1.Size = New System.Drawing.Size(36, 33)
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("AR DELANEY", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Label1.Location = New System.Drawing.Point(410, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(170, 40)
+        Me.Label1.TabIndex = 5
+        Me.Label1.Text = "Administrador de Tareas y Servicios"
         '
         'cmsEasyTaskManager
         '
@@ -325,4 +339,5 @@ Partial Class frmMain
     Friend WithEvents tsmnuiClose As ToolStripMenuItem
     Friend WithEvents cmsEasyTaskManager As ContextMenuStrip
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Label1 As Label
 End Class

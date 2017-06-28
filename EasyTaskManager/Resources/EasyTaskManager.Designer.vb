@@ -83,6 +83,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Busca una cadena traducida similar a Changed Afinity.
+        '''</summary>
+        Friend Shared ReadOnly Property ChangeAfinity() As String
+            Get
+                Return ResourceManager.GetString("ChangeAfinity", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Busca una cadena traducida similar a Change Priority Process.
         '''</summary>
         Friend Shared ReadOnly Property ChangePriorityProcess() As String
@@ -277,6 +286,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property OpenProcess() As String
             Get
                 Return ResourceManager.GetString("OpenProcess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a Pause Services.
+        '''</summary>
+        Friend Shared ReadOnly Property PauseServices() As String
+            Get
+                Return ResourceManager.GetString("PauseServices", resourceCulture)
             End Get
         End Property
         

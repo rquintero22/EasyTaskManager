@@ -119,6 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="frmAfinidad.Designer.vb">
+      <DependentUpon>frmAfinidad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAfinidad.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmNewProcess.Designer.vb">
       <DependentUpon>frmNewProcess.vb</DependentUpon>
     </Compile>
@@ -155,6 +161,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAfinidad.resx">
+      <DependentUpon>frmAfinidad.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>

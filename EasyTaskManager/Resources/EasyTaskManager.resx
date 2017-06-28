@@ -240,4 +240,10 @@
   <data name="PriorityLow" xml:space="preserve">
     <value>Low Priority</value>
   </data>
+  <data name="PauseServices" xml:space="preserve">
+    <value>Pause Services</value>
+  </data>
+  <data name="ChangeAfinity" xml:space="preserve">
+    <value>Changed Afinity</value>
+  </data>
 </root>

@@ -58,6 +58,11 @@ EasyTaskManager
   Busca una cadena traducida similar a Cancel.
 </summary>
 </member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ChangeAfinity">
+<summary>
+  Busca una cadena traducida similar a Changed Afinity.
+</summary>
+</member>
 <member name="P:EasyTaskManager.My.Resources.EasyTaskManager.ChangePriorityProcess">
 <summary>
   Busca una cadena traducida similar a Change Priority Process.
@@ -168,6 +173,11 @@ EasyTaskManager
   Busca una cadena traducida similar a Open Process.
 </summary>
 </member>
+<member name="P:EasyTaskManager.My.Resources.EasyTaskManager.PauseServices">
+<summary>
+  Busca una cadena traducida similar a Pause Services.
+</summary>
+</member>
 <member name="P:EasyTaskManager.My.Resources.EasyTaskManager.Priority">
 <summary>
   Busca una cadena traducida similar a Priority.
@@ -258,6 +268,11 @@ EasyTaskManager
  Loaded resources the system
  </summary>
 </member>
+<member name="M:EasyTaskManager.frmMain.Initialize">
+ <summary>
+ Método que inicializa la aplicación
+ </summary>
+</member>
 <member name="M:EasyTaskManager.frmMain.ConfigureStatusStrip">
  <summary>
  Configure the status bar
@@ -287,6 +302,74 @@ EasyTaskManager
  <summary>
  Loading current processes 
  </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.LoadServices">
+ <summary>
+ Carga los servicios disponibles
+ </summary>
+</member>
+<member name="M:EasyTaskManager.frmMain.TmrServices_Tick(System.Object,System.EventArgs)">
+ <summary>
+ Evento del temporizador de los serivicios
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.TmrProcess_Tick(System.Object,System.EventArgs)">
+ <summary>
+ Evento del temporizador de procesos
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.StartServices_Click(System.Object,System.EventArgs)">
+ <summary>
+ Evento que inicia los serivicios
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.PauseServices_Click(System.Object,System.EventArgs)">
+ <summary>
+ Evento que pausa los servicios
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.FinalizeServices_Click(System.Object,System.EventArgs)">
+ <summary>
+ Evento que finaliza los servicios
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.GotoServices_Click(System.Object,System.EventArgs)">
+ <summary>
+ Evento que muestra la pestaña de servicios
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.FinalizeTreeProcess_Click(System.Object,System.EventArgs)">
+ <summary>
+ Evento para finalizar árbol de procesos
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.ChangedAfinity_Click(System.Object,System.EventArgs)">
+ <summary>
+ Evento para cambiar la afinidad del procesador
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:EasyTaskManager.frmMain.ChangePriorityProcess_Click(System.Object,System.Windows.Forms.ToolStripItemClickedEventArgs)">
+ <summary>
+ Evento para cambir prioridad de los procesos
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
 </member>
 </members>
 </doc>

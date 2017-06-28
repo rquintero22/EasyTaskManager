@@ -10,7 +10,7 @@ Public Class frmMain
 
 #Region "Variables"
     ''
-    Private _interval As Integer = 10000 'Indicate of the interval of timer
+    Private _interval As Integer = 20000 'Indicate of the interval of timer
 
     Private _rm As Resources.ResourceManager
     Private _cultureInfo As CultureInfo
@@ -46,6 +46,9 @@ Public Class frmMain
 
 #Region "Methods Private"
 
+    ''' <summary>
+    ''' Método que inicializa la aplicación
+    ''' </summary>
     Private Sub Initialize()
         Try
             _cultureInfo = Application.CurrentCulture
@@ -223,12 +226,12 @@ Public Class frmMain
             'lvi.SubItems.Add("Running")
 
             'lvProcess.Items.Add(lvi)
-            'mo = New ManagementObject("root\CIMV2", "Win32_Process.Handle=" & p.Id, Nothing)
-            'methodResult = mo.InvokeMethod("GetOwner", Nothing, Nothing)
+            mo = New ManagementObject("root\CIMV2", "Win32_Process.Handle=" & p.Id, Nothing)
+            methodResult = mo.InvokeMethod("GetOwner", Nothing, Nothing)
 
-            'If CInt(methodResult("ReturnValue")) = 0 Then
-            '    processOwner = String.Format("{0}\{1}", methodResult("Domain").ToString, methodResult("User").ToString)
-            'End If
+            If CInt(methodResult("ReturnValue")) = 0 Then
+                processOwner = String.Format("{0}\{1}", methodResult("Domain").ToString, methodResult("User").ToString)
+            End If
 
             'processOwner = p.StartInfo.UserName
 
@@ -254,7 +257,7 @@ Public Class frmMain
 
             subProcess += p.Threads.Count
 
-            ListViewAddItemProcess(p.Id, p.ProcessName, description, p.StartInfo.UserName, String.Format("{0} K", Math.Round((p.PrivateMemorySize64 / 1024), 0).ToString("0,000")), "Running", priority)
+            ListViewAddItemProcess(p.Id, p.ProcessName, description, processOwner, String.Format("{0} K", Math.Round((p.PrivateMemorySize64 / 1024), 0).ToString("0,000")), "Running", priority)
 
         Next
 
@@ -276,10 +279,14 @@ Public Class frmMain
 
     End Sub
 
+    ''' <summary>
+    ''' Carga los servicios disponibles
+    ''' </summary>
     Private Sub LoadServices()
         Dim listServices As List(Of ServiceController) = ServiceController.GetServices.OrderBy(Function(sc) sc.DisplayName).ToList
         Dim lviServices As ListViewItem = Nothing
         Dim statusService As String = Nothing
+
 
         For Each s As ServiceController In listServices
             lviServices = New ListViewItem()
@@ -437,6 +444,7 @@ Public Class frmMain
             Case eType.Processes
                 Dim cmsChangePriorityProcess As ToolStripMenuItem = cms.Items.Add(My.Resources.EasyTaskManager.ChangePriorityProcess)
                 Dim cmsFinalizeTask As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.FinalizeTask)
+                Dim cmsChangeAfinity As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.ChangeAfinity)
                 Dim cmsFinalizeTreeProcess As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.FinalizeTreeProcess)
                 Dim cmsGotoServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.GotoServices)
 
@@ -448,6 +456,7 @@ Public Class frmMain
                 'tsiPriorityNormal.Owne = cmsChangePriorityProcess
 
                 AddHandler cmsFinalizeTask.Click, AddressOf FinalizeTask_Click
+                AddHandler cmsChangeAfinity.Click, AddressOf ChangedAfinity_Click
                 AddHandler cmsFinalizeTreeProcess.Click, AddressOf FinalizeTreeProcess_Click
                 AddHandler cmsGotoServices.Click, AddressOf GotoServices_Click
 
@@ -455,7 +464,7 @@ Public Class frmMain
             Case eType.Services
                 Dim cmsFinalizeServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.StopServices)
                 Dim cmsStartServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.StartServices)
-                'Dim cmsGotoServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.GotoServices)
+                Dim cmsPauseServices As ToolStripItem = cms.Items.Add(My.Resources.EasyTaskManager.PauseServices)
 
                 ' Dim tsiPriorityNormal As ToolStripItem = cms.Items.AddRange(My.Resources.EasyTaskManager.PriorityNormal)
 
@@ -463,7 +472,7 @@ Public Class frmMain
 
                 AddHandler cmsFinalizeServices.Click, AddressOf FinalizeServices_Click
                 AddHandler cmsStartServices.Click, AddressOf StartServices_Click
-                'AddHandler cmsGotoServices.Click, AddressOf GotoServices_Click
+                AddHandler cmsPauseServices.Click, AddressOf PauseServices_Click
         End Select
         Return cms
     End Function
@@ -472,9 +481,15 @@ Public Class frmMain
 
 #Region "Events"
 
+    ''' <summary>
+    ''' Evento del temporizador de los serivicios
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub TmrServices_Tick(sender As Object, e As EventArgs)
         If Not _threadServices.IsAlive AndAlso (_threadServices.ThreadState = ThreadState.Stopped OrElse _threadServices.ThreadState = ThreadState.Unstarted) Then
             ''Load services
+            lvServices.Items.Clear()
             _threadServices = New Thread(New ThreadStart(AddressOf LoadServices))
             _threadServices.Name = "servEasyTaskManager"
             _threadServices.IsBackground = True
@@ -482,9 +497,15 @@ Public Class frmMain
         End If
     End Sub
 
+    ''' <summary>
+    ''' Evento del temporizador de procesos
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub TmrProcess_Tick(sender As Object, e As EventArgs)
         If Not _threadProcess.IsAlive AndAlso (_threadProcess.ThreadState = ThreadState.Stopped OrElse _threadProcess.ThreadState = ThreadState.Unstarted) Then
             'Load process
+            lvProcess.Items.Clear()
             _threadProcess = New Thread(New ThreadStart(AddressOf LoadProcess))
             _threadProcess.Name = "proEasyTaskManager"
             _threadProcess.IsBackground = True
@@ -492,6 +513,11 @@ Public Class frmMain
         End If
     End Sub
 
+    ''' <summary>
+    ''' Evento que inicia los serivicios
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub StartServices_Click(sender As Object, e As EventArgs)
         Try
             If lvServices.SelectedItems.Count > 0 Then
@@ -507,6 +533,26 @@ Public Class frmMain
 
     End Sub
 
+    ''' <summary>
+    ''' Evento que pausa los servicios
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub PauseServices_Click(sender As Object, e As EventArgs)
+        If lvServices.SelectedItems.Count > 0 Then
+            Dim s As New ServiceController(lvServices.SelectedItems(0).Text)
+            If s.Status = ServiceControllerStatus.Running Or s.Status = ServiceControllerStatus.StartPending Then
+                s.Stop()
+                s.WaitForStatus(ServiceControllerStatus.Paused)
+            End If
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Evento que finaliza los servicios
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub FinalizeServices_Click(sender As Object, e As EventArgs)
         If lvServices.SelectedItems.Count > 0 Then
             Dim s As New ServiceController(lvServices.SelectedItems(0).Text)
@@ -517,19 +563,51 @@ Public Class frmMain
         End If
     End Sub
 
+    ''' <summary>
+    ''' Evento que muestra la pestaña de servicios
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub GotoServices_Click(sender As Object, e As EventArgs)
         tpServices.Select()
         tcEasyTaskManager.SelectedIndex = 2
     End Sub
 
+    ''' <summary>
+    ''' Evento para finalizar árbol de procesos
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub FinalizeTreeProcess_Click(sender As Object, e As EventArgs)
         If lvProcess.SelectedItems.Count > 0 Then
-            Dim p As Process = Process.GetProcessById(lvProcess.SelectedItems(0).Text)
-            p.Kill()
-            p.WaitForExit()
+            Dim p As Process() = Process.GetProcessesByName(lvProcess.SelectedItems(0).SubItems(1).Text)
+            For Each proc In p
+                If Not proc.HasExited Then
+                    proc.Kill()
+                    proc.WaitForExit()
+                End If
+            Next
         End If
     End Sub
 
+    ''' <summary>
+    ''' Evento para cambiar la afinidad del procesador
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub ChangedAfinity_Click(sender As Object, e As EventArgs)
+        If lvProcess.SelectedItems.Count > 0 Then
+            Dim proc As Process = Process.GetProcessById(lvProcess.SelectedItems(0).Text)
+            Dim fAfinity As New frmAfinidad(proc)
+            fAfinity.ShowDialog()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Evento para cambir prioridad de los procesos
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub ChangePriorityProcess_Click(sender As Object, e As ToolStripItemClickedEventArgs)
         If lvProcess.SelectedItems.Count > 0 Then
             Try
@@ -597,6 +675,12 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub lvServices_DrawItem(sender As Object, e As DrawListViewItemEventArgs) Handles lvServices.DrawItem
+        If Not (e.State = ListViewItemStates.Selected) = 0 Then
+            e.Graphics.FillRectangle(Brushes.SkyBlue, e.Bounds)
+            e.DrawFocusRectangle()
+        End If
+    End Sub
 
 #End Region
 
